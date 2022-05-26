@@ -1,5 +1,4 @@
 ﻿using PrivacyBudgetServer.Models;
-using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
 namespace PrivacyBudgetServer.Services
