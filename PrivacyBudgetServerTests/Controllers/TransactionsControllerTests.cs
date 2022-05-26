@@ -17,14 +17,14 @@ using System.Threading.Tasks;
 namespace PrivacyBudgetServerTests.Controllers
 {
     [TestClass]
-    public class TransactionControllerTests
+    public class TransactionsControllerTests
     {
-        private TransactionController CreateTransactionController(ICRUDService<Transaction> transactionService)
+        private TransactionsController CreateTransactionController(ICRUDService<Transaction> transactionService)
         {
             // Create mocks
-            Mock<ILogger<TransactionController>> mockLogger = new Mock<ILogger<TransactionController>>();
+            Mock<ILogger<TransactionsController>> mockLogger = new Mock<ILogger<TransactionsController>>();
 
-            return new TransactionController(mockLogger.Object, transactionService);
+            return new TransactionsController(mockLogger.Object, transactionService);
         }
 
         private void AssertEqualTransactions(Transaction expected, Transaction actual)
@@ -52,7 +52,7 @@ namespace PrivacyBudgetServerTests.Controllers
 
             Mock<ICRUDService<Transaction>> transactionServiceMock = new Mock<ICRUDService<Transaction>>();
             transactionServiceMock.Setup(ts => ts.GetAsync()).Returns(Task.FromResult(expected));
-            TransactionController controller = CreateTransactionController(transactionServiceMock.Object);
+            TransactionsController controller = CreateTransactionController(transactionServiceMock.Object);
 
             // Action
             List<Transaction> actual = await controller.Get();
