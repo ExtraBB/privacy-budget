@@ -27,18 +27,35 @@ namespace PrivacyBudgetServerTests.Controllers
             return new TransactionController(mockLogger.Object, transactionService);
         }
 
+        private void AssertEqualTransactions(Transaction expected, Transaction actual)
+        {
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.Date, actual.Date);
+        }
+
         [TestMethod]
         public async Task TestGet()
         {
             // Setup
+            List<Transaction> expected = new List<Transaction>()
+            {
+                new Transaction(){ Date = DateTime.Now, Id = "ID_123" }
+            };
+
             Mock<ICRUDService<Transaction>> transactionServiceMock = new Mock<ICRUDService<Transaction>>();
+            transactionServiceMock.Setup(ts => ts.GetAsync()).Returns(Task.FromResult(expected));
             TransactionController controller = CreateTransactionController(transactionServiceMock.Object);
 
             // Action
-            await controller.Get();
+            List<Transaction> actual = await controller.Get();
 
             // Assert
             transactionServiceMock.Verify(service => service.GetAsync());
+            Assert.AreEqual(expected.Count, actual.Count);
+            for(int i = 0; i < expected.Count; i++)
+            {
+                AssertEqualTransactions(expected[i], actual[i]);
+            }
         }
     }
 }

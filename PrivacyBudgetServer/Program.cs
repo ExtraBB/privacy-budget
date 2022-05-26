@@ -1,5 +1,3 @@
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
 using PrivacyBudgetServer.Models;
 using PrivacyBudgetServer.Services;
 
@@ -12,12 +10,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Database
-
-builder.Services.Configure<PrivacyBudgetDatabaseSettings>(builder.Configuration.GetSection("PrivacyBudgetDatabase"));
-builder.Services.AddSingleton<IMongoClient>(sp => new MongoClient(sp.GetService<IOptions<PrivacyBudgetDatabaseSettings>>().Value.ConnectionString));
-builder.Services.AddSingleton<IMongoDatabase>(sp => sp.GetService<IMongoClient>().GetDatabase(sp.GetService<IOptions<PrivacyBudgetDatabaseSettings>>().Value.DatabaseName));
-builder.Services.AddSingleton<TransactionService>();
-builder.Services.AddSingleton<ICRUDService<Transaction>>(sp => sp.GetService<TransactionService>());
+builder.Services.Configure<PrivacyBudgetDatabaseSettings>(builder.Configuration.GetSection("Database"));
+builder.Services.AddSingleton<DatabaseService>();
+builder.Services.AddSingleton<ICRUDService<Transaction>>(sp => new CRUDService<Transaction>(sp.GetService<DatabaseService>()?.TransactionCollection));
 
 var app = builder.Build();
 

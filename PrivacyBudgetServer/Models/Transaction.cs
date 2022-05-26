@@ -3,7 +3,7 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace PrivacyBudgetServer.Models
 {
-    public class Transaction
+    public class Transaction : IMongoDocument
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
