@@ -4,19 +4,13 @@ using MongoDB.Driver;
 
 namespace PrivacyBudgetServer.Services
 {
-    public class TransactionService
+    public class TransactionService : ICRUDService<Transaction>
     {
         private readonly IMongoCollection<Transaction> _transactionsCollection;
 
-        public TransactionService(IOptions<PrivacyBudgetDatabaseSettings> privacyBudgetDatabaseSettings)
+        public TransactionService(IOptions<PrivacyBudgetDatabaseSettings> privacyBudgetDatabaseSettings, IMongoDatabase database)
         {
-            var mongoClient = new MongoClient(
-                privacyBudgetDatabaseSettings.Value.ConnectionString);
-
-            var mongoDatabase = mongoClient.GetDatabase(
-                privacyBudgetDatabaseSettings.Value.DatabaseName);
-
-            _transactionsCollection = mongoDatabase.GetCollection<Transaction>(
+            _transactionsCollection = database.GetCollection<Transaction>(
                 privacyBudgetDatabaseSettings.Value.TransactionsCollectionName);
         }
 

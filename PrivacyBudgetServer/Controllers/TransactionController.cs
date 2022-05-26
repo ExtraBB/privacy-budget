@@ -9,9 +9,9 @@ namespace PrivacyBudgetServer.Controllers
     public class TransactionController : ControllerBase
     {
         private readonly ILogger<TransactionController> _logger;
-        private readonly TransactionService _transactionService;
+        private readonly ICRUDService<Transaction> _transactionService;
 
-        public TransactionController(ILogger<TransactionController> logger, TransactionService transactionService)
+        public TransactionController(ILogger<TransactionController> logger, ICRUDService<Transaction> transactionService)
         {
             _logger = logger;
             _transactionService = transactionService;
