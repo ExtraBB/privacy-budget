@@ -79,14 +79,16 @@ namespace PrivacyBudgetServer.Services
             dynamic? data = GetFieldData(transaction, segment.Field);
             dynamic? parameter = GetParameterData(segment.Field, segment.Parameter);
 
+            string? dataAsString = data as string;
+
             switch(segment.Operator)
             {
                 case RuleOperator.Exists: return data != null;
                 case RuleOperator.NotExists: return data == null;
                 case RuleOperator.Equals: return data == parameter;
                 case RuleOperator.NotEquals: return data != parameter;
-                case RuleOperator.Contains: return data is string s1 && s1.Contains(parameter);
-                case RuleOperator.NotContains: return data is string s2 && !s2.Contains(parameter);
+                case RuleOperator.Contains: return dataAsString != null && parameter != null && dataAsString.ToLowerInvariant().Contains(parameter.ToLowerInvariant());
+                case RuleOperator.NotContains: return dataAsString != null && parameter != null && !dataAsString.ToLowerInvariant().Contains(parameter.ToLowerInvariant());
                 case RuleOperator.GreaterThan: return data > parameter;
                 case RuleOperator.GreaterThanOrEqualTo: return data >= parameter;
                 case RuleOperator.LessThan: return data < parameter;
