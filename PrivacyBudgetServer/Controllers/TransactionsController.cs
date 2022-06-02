@@ -1,6 +1,6 @@
 using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
-using PrivacyBudgetServer.Models;
+using PrivacyBudgetServer.Models.Database;
 using PrivacyBudgetServer.Services;
 using System.Globalization;
 
@@ -38,7 +38,7 @@ namespace PrivacyBudgetServer.Controllers
         }
 
         [HttpPut("[controller]")]
-        public async Task<IActionResult> Post(Transaction newTransaction)
+        public async Task<IActionResult> Create(Transaction newTransaction)
         {
             await _transactionService.CreateAsync(newTransaction);
 
@@ -78,7 +78,18 @@ namespace PrivacyBudgetServer.Controllers
         }
 
         [HttpPost("[controller]/Import")]
-        public async Task<IActionResult> ImportBatch(IFormFile csvFile)
+        public async Task<IActionResult> ImportBatch(
+            IFormFile csvFile,
+            string accountId,
+            string dateHeader = "Date",
+            string fromHeader = "From",
+            string fromAccountHeader = "FromAccount",
+            string toHeader = "To",
+            string toAccountHeader = "ToAccount",
+            string amountHeader = "Amount",
+            string typeHeader = "Type",
+            string descriptionHeader = "Description"
+        )
         {
             try
             {
@@ -91,26 +102,25 @@ namespace PrivacyBudgetServer.Controllers
                     csv.ReadHeader();
                     while (csv.Read())
                     {
-                        bool dateFound = csv.TryGetField<DateTime>("Date", out DateTime date);
-                        bool fromFound = csv.TryGetField<string>("From", out string from);
-                        bool fromAccountFound = csv.TryGetField<string>("FromAccount", out string fromAccount);
-                        bool toFound = csv.TryGetField<string>("To", out string to);
-                        bool toAccountFound = csv.TryGetField<string>("ToAccount", out string toAccount);
-                        bool amountFound = csv.TryGetField<decimal>("Amount", out decimal amount);
-                        bool typeFound = csv.TryGetField<string>("Type", out string type);
-                        bool descriptionFound = csv.TryGetField<string>("Description", out string description);
+                        bool dateFound = csv.TryGetField<DateTime>(dateHeader, out DateTime date);
+                        bool fromFound = csv.TryGetField<string>(fromHeader, out string from);
+                        bool fromAccountFound = csv.TryGetField<string>(fromAccountHeader, out string fromAccount);
+                        bool toFound = csv.TryGetField<string>(toHeader, out string to);
+                        bool toAccountFound = csv.TryGetField<string>(toAccountHeader, out string toAccount);
+                        bool amountFound = csv.TryGetField<decimal>(amountHeader, out decimal amount);
+                        bool typeFound = csv.TryGetField<string>(typeHeader, out string type);
+                        bool descriptionFound = csv.TryGetField<string>(descriptionHeader, out string description);
 
                         if(!dateFound || !fromAccountFound || !amountFound)
                         {
                             return BadRequest();
                         }
 
-                        // TODO: Add way to specify header names
-                        transactions.Add(new Transaction(null, date, from, fromAccount, to, toAccount, amount, type, description));
+                        transactions.Add(new Transaction(null, accountId, date, from, fromAccount, to, toAccount, amount, type, description));
                     }
                 }
 
-                // TODO: store in database
+                await _transactionService.CreateManyAsync(transactions);
 
                 return StatusCode(200);
             }

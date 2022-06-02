@@ -1,4 +1,4 @@
-﻿namespace PrivacyBudgetServer.Models
+﻿namespace PrivacyBudgetServer.Models.Database
 {
     public interface IMongoDocument
     {

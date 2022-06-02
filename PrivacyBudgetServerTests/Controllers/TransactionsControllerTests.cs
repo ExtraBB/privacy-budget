@@ -1,17 +1,12 @@
 ﻿using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MongoDB.Driver;
-using MongoDB.Driver.Linq;
 using Moq;
 using PrivacyBudgetServer.Controllers;
 using PrivacyBudgetServer.Models;
+using PrivacyBudgetServer.Models.Database;
 using PrivacyBudgetServer.Services;
-using PrivacyBudgetServerTests.Controllers.Mock;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PrivacyBudgetServerTests.Controllers
@@ -47,7 +42,7 @@ namespace PrivacyBudgetServerTests.Controllers
             // Setup
             List<Transaction> expected = new List<Transaction>()
             {
-                new Transaction("TestID", DateTime.Now, "Person A", "IBAN A", "Person B", "IBAN B", 23.0M, "BEA", "A gift to you", TransactionCategory.Gift)
+                new Transaction("TestID", "AccountId", DateTime.Now, "Person A", "IBAN A", "Person B", "IBAN B", 23.0M, "BEA", "A gift to you", TransactionCategory.Gift)
             };
 
             Mock<ICRUDService<Transaction>> transactionServiceMock = new Mock<ICRUDService<Transaction>>();

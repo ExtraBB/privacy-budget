@@ -1,5 +1,6 @@
-﻿using PrivacyBudgetServer.Models;
+﻿using PrivacyBudgetServer.Models.Database;
 using MongoDB.Driver;
+using System.Linq.Expressions;
 
 namespace PrivacyBudgetServer.Services
 {
@@ -23,8 +24,14 @@ namespace PrivacyBudgetServer.Services
         public async Task<T?> GetAsync(string id) =>
             await _collection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
+        public async Task<List<T>> GetAsync(Expression<Func<T,bool>> filter) =>
+            await _collection.Find(filter).ToListAsync();
+
         public async Task CreateAsync(T newTransaction) =>
             await _collection.InsertOneAsync(newTransaction);
+
+        public async Task CreateManyAsync(IEnumerable<T> newTransactions) =>
+            await _collection.InsertManyAsync(newTransactions);
 
         public async Task UpdateAsync(string id, T updatedTransaction) =>
             await _collection.ReplaceOneAsync(x => x.Id == id, updatedTransaction);
