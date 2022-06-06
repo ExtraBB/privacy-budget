@@ -1,6 +1,7 @@
 using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
 using PrivacyBudgetServer.Models.Database;
+using PrivacyBudgetServer.Parsers;
 using PrivacyBudgetServer.Services;
 using System.Globalization;
 
@@ -92,42 +93,32 @@ namespace PrivacyBudgetServer.Controllers
         {
             try
             {
-                List<Transaction> transactions = new List<Transaction>();
+                TransactionCSVParser parser = new TransactionCSVParser(accountId, new Parsers.Options.TransactionCSVParserOptions()
+                {
+                    HasHeaderRow = hasHeaderRow,
+                    DateFormat = dateFormat,
+                    DateColumn = dateColumn,
+                    CounterPartyColumn = counterPartyColumn,
+                    CounterPartyAccountColumn = counterPartyAccountColumn,
+                    AmountColumn = amountColumn,
+                    DescriptionColumn = descriptionColumn
+                });
+
                 using (var reader = new StreamReader(csvFile.OpenReadStream()))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
-                    csv.Read();
+                    List<Transaction> transactions = parser.TryParseAll(csv);
 
-                    if (hasHeaderRow)
+                    if (transactions.Any())
                     {
-                        csv.ReadHeader();
+                        await _transactionService.CreateManyAsync(transactions);
+                        return Ok($"Successfully imported {transactions.Count} transactions.");
                     }
-
-                    while (csv.Read())
+                    else
                     {
-                        bool dateFound = csv.TryGetField<string>(dateColumn, out string dateString);
-                        bool counterPartyFound = csv.TryGetField<string>(counterPartyColumn, out string counterParty);
-                        bool counterPartyAccountFound = csv.TryGetField<string>(counterPartyAccountColumn, out string counterPartyAccount);
-                        bool amountFound = csv.TryGetField<decimal>(amountColumn, out decimal amount);
-                        bool descriptionFound = csv.TryGetField<string>(descriptionColumn, out string description);
-
-                        if(!dateFound || !amountFound)
-                        {
-                            return BadRequest();
-                        }
-
-                        bool dateParsed = DateTime.TryParseExact(dateString, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date);
-                        if(!dateParsed)
-                        {
-                            return BadRequest();
-                        }
-                        transactions.Add(new Transaction(null, accountId, date, counterParty, counterPartyAccount, amount, description));
+                        return BadRequest();
                     }
                 }
-
-                await _transactionService.CreateManyAsync(transactions);
-
-                return Ok($"Successfully imported {transactions.Count} transactions.");
             }
             catch(Exception ex)
             {
