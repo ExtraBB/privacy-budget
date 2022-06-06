@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "d3a4f5d5-09b4-4081-99a2-1b2c5a8bd338",
+		"name": "Budget",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "ImportTransactions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "csvFile",
+							"type": "file",
+							"src": "/C:/Users/bcarv/Downloads/transactie-historie_NL82ASNB0778055698_20220604182536.csv"
+						},
+						{
+							"key": "accountId",
+							"value": "629de510f662765f3937618c",
+							"type": "default"
+						},
+						{
+							"key": "dateColumn",
+							"value": "0",
+							"type": "default"
+						},
+						{
+							"key": "counterPartyAccountColumn",
+							"value": "2",
+							"type": "default"
+						},
+						{
+							"key": "counterPartyColumn",
+							"value": "3",
+							"type": "default"
+						},
+						{
+							"key": "amountColumn",
+							"value": "10",
+							"type": "default"
+						},
+						{
+							"key": "descriptionColumn",
+							"value": "17",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:5000/transactions/import",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"transactions",
+						"import"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateAccount",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Gezamenlijk\",\r\n    \"number\": \"NL81ASNB0778055698\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/accounts?",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"accounts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
