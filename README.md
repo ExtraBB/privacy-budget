@@ -1,6 +1,6 @@
-# PrivacyBudgetServer
+# privacy-budget
 
-This is the backend for PrivacyBudget, a privacy-conscious budgetting tool.
+This is the backend for Privacy Budget, a privacy-conscious budgetting tool.
 
 ## Running the backend
 
