@@ -12,11 +12,13 @@ namespace PrivacyBudgetServer.Controllers
     {
         private readonly ILogger<TransactionsController> _logger;
         private readonly ICRUDService<Transaction> _transactionService;
+        private readonly ICRUDService<Account> _accountService;
 
-        public TransactionsController(ILogger<TransactionsController> logger, ICRUDService<Transaction> transactionService)
+        public TransactionsController(ILogger<TransactionsController> logger, ICRUDService<Transaction> transactionService, ICRUDService<Account> accountService)
         {
             _logger = logger;
             _transactionService = transactionService;
+            _accountService = accountService;
         }
 
         [HttpGet("[controller]")]
@@ -91,6 +93,12 @@ namespace PrivacyBudgetServer.Controllers
             [FromForm] int descriptionColumn = -1
         )
         {
+            Account? account = await _accountService.GetAsync(accountId);
+            if (account == null)
+            {
+                return BadRequest();
+            }
+
             try
             {
                 TransactionCSVParser parser = new TransactionCSVParser(accountId, new Parsers.Options.TransactionCSVParserOptions()
@@ -112,6 +120,14 @@ namespace PrivacyBudgetServer.Controllers
                     if (transactions.Any())
                     {
                         await _transactionService.CreateManyAsync(transactions);
+
+                        foreach(Transaction transaction in transactions)
+                        {
+                            account.Balance += transaction.Amount;
+                        }
+
+                        await _accountService.UpdateAsync(accountId, account);
+
                         return Ok($"Successfully imported {transactions.Count} transactions.");
                     }
                     else

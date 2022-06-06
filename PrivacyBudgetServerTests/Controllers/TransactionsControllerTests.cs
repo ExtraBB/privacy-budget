@@ -18,8 +18,9 @@ namespace PrivacyBudgetServerTests.Controllers
         {
             // Create mocks
             Mock<ILogger<TransactionsController>> mockLogger = new Mock<ILogger<TransactionsController>>();
+            Mock<ICRUDService<Account>> mockAccountsService = new Mock<ICRUDService<Account>>();
 
-            return new TransactionsController(mockLogger.Object, transactionService);
+            return new TransactionsController(mockLogger.Object, transactionService, mockAccountsService.Object);
         }
 
         private void AssertEqualTransactions(Transaction expected, Transaction actual)
