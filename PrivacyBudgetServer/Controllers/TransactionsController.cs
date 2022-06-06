@@ -80,49 +80,54 @@ namespace PrivacyBudgetServer.Controllers
         [HttpPost("[controller]/Import")]
         public async Task<IActionResult> ImportBatch(
             IFormFile csvFile,
-            string accountId,
-            string dateHeader = "Date",
-            string fromHeader = "From",
-            string fromAccountHeader = "FromAccount",
-            string toHeader = "To",
-            string toAccountHeader = "ToAccount",
-            string amountHeader = "Amount",
-            string typeHeader = "Type",
-            string descriptionHeader = "Description"
+            [FromForm] string accountId,
+            [FromForm] bool hasHeaderRow = false,
+            [FromForm] string? dateFormat = "dd-MM-yyyy",
+            [FromForm] int dateColumn = -1,
+            [FromForm] int counterPartyColumn = -1,
+            [FromForm] int counterPartyAccountColumn = -1,
+            [FromForm] int amountColumn = -1,
+            [FromForm] int descriptionColumn = -1
         )
         {
             try
             {
                 List<Transaction> transactions = new List<Transaction>();
-
                 using (var reader = new StreamReader(csvFile.OpenReadStream()))
                 using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
                 {
                     csv.Read();
-                    csv.ReadHeader();
+
+                    if (hasHeaderRow)
+                    {
+                        csv.ReadHeader();
+                    }
+
                     while (csv.Read())
                     {
-                        bool dateFound = csv.TryGetField<DateTime>(dateHeader, out DateTime date);
-                        bool fromFound = csv.TryGetField<string>(fromHeader, out string from);
-                        bool fromAccountFound = csv.TryGetField<string>(fromAccountHeader, out string fromAccount);
-                        bool toFound = csv.TryGetField<string>(toHeader, out string to);
-                        bool toAccountFound = csv.TryGetField<string>(toAccountHeader, out string toAccount);
-                        bool amountFound = csv.TryGetField<decimal>(amountHeader, out decimal amount);
-                        bool typeFound = csv.TryGetField<string>(typeHeader, out string type);
-                        bool descriptionFound = csv.TryGetField<string>(descriptionHeader, out string description);
+                        bool dateFound = csv.TryGetField<string>(dateColumn, out string dateString);
+                        bool counterPartyFound = csv.TryGetField<string>(counterPartyColumn, out string counterParty);
+                        bool counterPartyAccountFound = csv.TryGetField<string>(counterPartyAccountColumn, out string counterPartyAccount);
+                        bool amountFound = csv.TryGetField<decimal>(amountColumn, out decimal amount);
+                        bool descriptionFound = csv.TryGetField<string>(descriptionColumn, out string description);
 
-                        if(!dateFound || !fromAccountFound || !amountFound)
+                        if(!dateFound || !amountFound)
                         {
                             return BadRequest();
                         }
 
-                        transactions.Add(new Transaction(null, accountId, date, from, fromAccount, to, toAccount, amount, type, description));
+                        bool dateParsed = DateTime.TryParseExact(dateString, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date);
+                        if(!dateParsed)
+                        {
+                            return BadRequest();
+                        }
+                        transactions.Add(new Transaction(null, accountId, date, counterParty, counterPartyAccount, amount, description));
                     }
                 }
 
                 await _transactionService.CreateManyAsync(transactions);
 
-                return StatusCode(200);
+                return Ok($"Successfully imported {transactions.Count} transactions.");
             }
             catch(Exception ex)
             {

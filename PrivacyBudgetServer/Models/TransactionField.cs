@@ -3,12 +3,9 @@
     public enum TransactionField
     {
         Date,
-        From,
-        FromAccount,
-        To,
-        ToAccount,
+        CounterParty,
+        CounterPartyAccount,
         Amount,
-        Type,
         Description,
     }
 }

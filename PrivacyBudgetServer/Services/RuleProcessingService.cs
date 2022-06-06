@@ -102,11 +102,8 @@ namespace PrivacyBudgetServer.Services
             switch(field)
             {
                 case TransactionField.Date: return transaction.Date;
-                case TransactionField.From: return transaction.From;
-                case TransactionField.FromAccount: return transaction.FromAccount;
-                case TransactionField.To: return transaction.To;
-                case TransactionField.ToAccount: return transaction.ToAccount;
-                case TransactionField.Type: return transaction.Type;
+                case TransactionField.CounterParty: return transaction.CounterParty;
+                case TransactionField.CounterPartyAccount: return transaction.CounterPartyAccount;
                 case TransactionField.Description: return transaction.Description;
                 case TransactionField.Amount: return transaction.Amount;
                 default: return null;
@@ -118,11 +115,8 @@ namespace PrivacyBudgetServer.Services
             switch (field)
             {
                 case TransactionField.Date: return (DateTime)parameter;
-                case TransactionField.From: return (string)parameter;
-                case TransactionField.FromAccount: return (string)parameter;
-                case TransactionField.To: return (string)parameter;
-                case TransactionField.ToAccount: return (string)parameter;
-                case TransactionField.Type: return (string)parameter;
+                case TransactionField.CounterParty: return (string)parameter;
+                case TransactionField.CounterPartyAccount: return (string)parameter;
                 case TransactionField.Description: return (string)parameter;
                 case TransactionField.Amount: return (decimal)parameter;
                 default: return null;
