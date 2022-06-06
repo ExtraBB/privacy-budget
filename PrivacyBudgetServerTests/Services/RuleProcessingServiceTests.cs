@@ -19,11 +19,11 @@ namespace PrivacyBudgetServerTests.Services
         {
             RuleProcessingService service = new RuleProcessingService(new Mock<ICRUDService<Rule>>().Object);
 
-            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, "Test User", "abcdef123456", null, "123456abcdef", 230.0M, "ESF", "TestDescription");
+            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, null, "123456abcdef", 230.0M, "TestDescription");
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Exists
             });
 
@@ -32,7 +32,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.To,
+                Field = TransactionField.CounterParty,
                 Operator = RuleOperator.Exists
             });
 
@@ -44,11 +44,11 @@ namespace PrivacyBudgetServerTests.Services
         {
             RuleProcessingService service = new RuleProcessingService(new Mock<ICRUDService<Rule>>().Object);
 
-            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, "Test User", "abcdef123456", null, "123456abcdef", 230.0M, "ESF", "TestDescription");
+            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, null, "123456abcdef", 230.0M, "TestDescription");
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.NotExists
             });
 
@@ -57,7 +57,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.To,
+                Field = TransactionField.CounterParty,
                 Operator = RuleOperator.NotExists
             });
 
@@ -69,13 +69,13 @@ namespace PrivacyBudgetServerTests.Services
         {
             RuleProcessingService service = new RuleProcessingService(new Mock<ICRUDService<Rule>>().Object);
 
-            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, "Test User", "abcdef123456", null, "123456abcdef", 230.0M, "ESF", "TestDescription");
+            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, null, "123456abcdef", 230.0M, "TestDescription");
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Equals,
-                Parameter = "Test User"
+                Parameter = "123456abcdef"
             });
 
             Assert.IsTrue(service.RuleSatisifed(transaction, rule));
@@ -83,16 +83,16 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Equals,
-                Parameter = "Test User 2"
+                Parameter = "123456abcdefg"
             });
 
             Assert.IsFalse(service.RuleSatisifed(transaction, rule));
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Equals
             });
 
@@ -104,13 +104,13 @@ namespace PrivacyBudgetServerTests.Services
         {
             RuleProcessingService service = new RuleProcessingService(new Mock<ICRUDService<Rule>>().Object);
 
-            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, "Test User", "abcdef123456", null, "123456abcdef", 230.0M, "ESF", "TestDescription");
+            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, null, "123456abcdef", 230.0M, "TestDescription");
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.NotEquals,
-                Parameter = "Test User 2"
+                Parameter = "123456abcdefg"
             });
 
             Assert.IsTrue(service.RuleSatisifed(transaction, rule));
@@ -118,7 +118,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.NotEquals
             });
 
@@ -126,9 +126,9 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.NotEquals,
-                Parameter = "Test User"
+                Parameter = "123456abcdef"
             });
 
             Assert.IsFalse(service.RuleSatisifed(transaction, rule));
@@ -139,13 +139,13 @@ namespace PrivacyBudgetServerTests.Services
         {
             RuleProcessingService service = new RuleProcessingService(new Mock<ICRUDService<Rule>>().Object);
 
-            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, "Test User", "abcdef123456", null, "123456abcdef", 230.0M, "ESF", "TestDescription");
+            Transaction transaction = new Transaction(null, "account_id", DateTime.Now, null, "123456abcdef", 230.0M, "TestDescription");
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Contains,
-                Parameter = "User"
+                Parameter = "123456"
             });
 
             Assert.IsTrue(service.RuleSatisifed(transaction, rule));
@@ -153,25 +153,25 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Contains,
-                Parameter = "user"
+                Parameter = "ABCDEF"
             });
 
             Assert.IsTrue(service.RuleSatisifed(transaction, rule));
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Contains,
-                Parameter = " user"
+                Parameter = "abcdef"
             });
 
             Assert.IsTrue(service.RuleSatisifed(transaction, rule));
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Contains,
                 Parameter = ""
             });
@@ -180,16 +180,16 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Contains,
-                Parameter = "uuser"
+                Parameter = "aabcdef"
             });
 
             Assert.IsFalse(service.RuleSatisifed(transaction, rule));
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.From,
+                Field = TransactionField.CounterPartyAccount,
                 Operator = RuleOperator.Contains
             });
 
@@ -197,7 +197,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.To,
+                Field = TransactionField.CounterParty,
                 Operator = RuleOperator.Contains
             });
 

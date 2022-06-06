@@ -26,12 +26,9 @@ namespace PrivacyBudgetServerTests.Controllers
         {
             Assert.AreEqual(expected.Id, actual.Id);
             Assert.AreEqual(expected.Date, actual.Date);
-            Assert.AreEqual(expected.From, actual.From);
-            Assert.AreEqual(expected.FromAccount, actual.FromAccount);
-            Assert.AreEqual(expected.To, actual.To);
-            Assert.AreEqual(expected.ToAccount, actual.ToAccount);
+            Assert.AreEqual(expected.CounterParty, actual.CounterParty);
+            Assert.AreEqual(expected.CounterPartyAccount, actual.CounterPartyAccount);
             Assert.AreEqual(expected.Amount, actual.Amount);
-            Assert.AreEqual(expected.Type, actual.Type);
             Assert.AreEqual(expected.Description, actual.Description);
             Assert.AreEqual(expected.Category, actual.Category);
         }
@@ -42,7 +39,7 @@ namespace PrivacyBudgetServerTests.Controllers
             // Setup
             List<Transaction> expected = new List<Transaction>()
             {
-                new Transaction("TestID", "AccountId", DateTime.Now, "Person A", "IBAN A", "Person B", "IBAN B", 23.0M, "BEA", "A gift to you", TransactionCategory.Gift)
+                new Transaction("TestID", "AccountId", DateTime.Now, "Person B", "IBAN B", 23.0M, "A gift to you", TransactionCategory.Gift)
             };
 
             Mock<ICRUDService<Transaction>> transactionServiceMock = new Mock<ICRUDService<Transaction>>();
