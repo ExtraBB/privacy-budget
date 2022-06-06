@@ -1,6 +1,6 @@
 ﻿namespace PrivacyBudgetServer.Parsers.Options
 {
-    internal class TransactionCSVParserOptions : CSVParserOptions
+    public class TransactionCSVParserOptions : CSVParserOptions
     {
         public int DateColumn { get; set; } = -1;
 

@@ -5,19 +5,33 @@ using System.Globalization;
 
 namespace PrivacyBudgetServer.Parsers
 {
-    internal class TransactionCSVParser : ICSVParser<Transaction>
+    public class TransactionCSVParser : ICSVParser<Transaction>
     {
         private string _accountId;
         private TransactionCSVParserOptions _options;
 
         public TransactionCSVParser(string accountId, TransactionCSVParserOptions options)
         {
+            if(accountId == null)
+            {
+                throw new ArgumentNullException(nameof(accountId));
+            }
+            else if(options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
             _accountId = accountId;
             _options = options;
         }
 
         public List<Transaction> TryParseAll(CsvReader csv)
         {
+            if (csv == null)
+            {
+                throw new ArgumentNullException(nameof(csv));
+            }
+
             List<Transaction> result = new List<Transaction>();
 
             if (_options.HasHeaderRow)
@@ -40,6 +54,11 @@ namespace PrivacyBudgetServer.Parsers
 
         public bool TryParseLine(CsvReader csv, out Transaction? result)
         {
+            if (csv == null)
+            {
+                throw new ArgumentNullException(nameof(csv));
+            }
+
             bool dateFound = csv.TryGetField<string>(_options.DateColumn, out string dateString);
             bool amountFound = csv.TryGetField<decimal>(_options.AmountColumn, out decimal amount);
 

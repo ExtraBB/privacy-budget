@@ -16,7 +16,7 @@ namespace PrivacyBudgetServer.Models.Database
         public string CounterPartyAccount { get; set; }
         [BsonRepresentation(BsonType.Decimal128)]
         public decimal Amount { get; set; }
-        public string Description { get; set; }
+        public string? Description { get; set; }
         public TransactionCategory Category { get; set; }
 
         public Transaction(
@@ -35,7 +35,7 @@ namespace PrivacyBudgetServer.Models.Database
             CounterParty = counterParty;
             CounterPartyAccount = counterPartyAccount;
             Amount = amount;
-            Description = description.Trim('"', '\'').Trim();
+            Description = description?.Trim('"', '\'')?.Trim();
             Category = category;
         }
     }
