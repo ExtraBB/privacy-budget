@@ -19,10 +19,10 @@ namespace PrivacyBudgetServer.Parsers
         public List<Transaction> TryParseAll(CsvReader csv)
         {
             List<Transaction> result = new List<Transaction>();
-            csv.Read();
 
             if (_options.HasHeaderRow)
             {
+                csv.Read();
                 csv.ReadHeader();
             }
 
