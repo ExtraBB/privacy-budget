@@ -38,5 +38,8 @@ namespace PrivacyBudgetServer.Services
 
         public async Task RemoveAsync(string id) =>
             await _collection.DeleteOneAsync(x => x.Id == id);
+
+        public async Task RemoveWhereAsync(Expression<Func<T, bool>> filter) =>
+            await _collection.DeleteManyAsync(filter);
     }
 }

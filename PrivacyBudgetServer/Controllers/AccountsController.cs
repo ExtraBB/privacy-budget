@@ -10,37 +10,39 @@ namespace PrivacyBudgetServer.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly ILogger<AccountsController> _logger;
-        private readonly ICRUDService<Account> _transactionService;
+        private readonly ICRUDService<Account> _accountService;
+        private readonly ICRUDService<Transaction> _transactionService;
 
-        public AccountsController(ILogger<AccountsController> logger, ICRUDService<Account> transactionService)
+        public AccountsController(ILogger<AccountsController> logger, ICRUDService<Account> accountService, ICRUDService<Transaction> transactionService)
         {
             _logger = logger;
+            _accountService = accountService;
             _transactionService = transactionService;
         }
 
         [HttpGet("[controller]")]
         public Task<List<Account>> Get()
         {
-            return _transactionService.GetAsync();
+            return _accountService.GetAsync();
         }
 
         [HttpGet("[controller]/{id:length(24)}")]
         public async Task<ActionResult<Account>> Get(string id)
         {
-            var transaction = await _transactionService.GetAsync(id);
+            var account = await _accountService.GetAsync(id);
 
-            if (transaction is null)
+            if (account is null)
             {
                 return NotFound();
             }
 
-            return transaction;
+            return account;
         }
 
         [HttpPut("[controller]")]
         public async Task<IActionResult> Create(Account newAccount)
         {
-            await _transactionService.CreateAsync(newAccount);
+            await _accountService.CreateAsync(newAccount);
 
             return CreatedAtAction(nameof(Get), new { id = newAccount.Id }, newAccount);
         }
@@ -48,16 +50,16 @@ namespace PrivacyBudgetServer.Controllers
         [HttpPatch("[controller]/{id:length(24)}")]
         public async Task<IActionResult> Update(string id, Account updatedAccount)
         {
-            var transaction = await _transactionService.GetAsync(id);
+            var account = await _accountService.GetAsync(id);
 
-            if (transaction is null)
+            if (account is null)
             {
                 return NotFound();
             }
 
-            updatedAccount.Id = transaction.Id;
+            updatedAccount.Id = account.Id;
 
-            await _transactionService.UpdateAsync(id, updatedAccount);
+            await _accountService.UpdateAsync(id, updatedAccount);
 
             return NoContent();
         }
@@ -65,15 +67,18 @@ namespace PrivacyBudgetServer.Controllers
         [HttpDelete("[controller]/{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var transaction = await _transactionService.GetAsync(id);
+            var account = await _accountService.GetAsync(id);
 
-            if (transaction is null)
+            if (account is null)
             {
                 return NotFound();
             }
 
-            await _transactionService.RemoveAsync(id);
+            // Remove account
+            await _accountService.RemoveAsync(id);
 
+            // Remove associated transactions
+            await _transactionService.RemoveWhereAsync(t => t.AccountId == account.Id);
             
 
             return NoContent();

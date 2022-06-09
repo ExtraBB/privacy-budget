@@ -12,5 +12,6 @@ namespace PrivacyBudgetServer.Services
         Task CreateManyAsync(IEnumerable<T> newTs);
         Task UpdateAsync(string id, T updatedTransaction);
         Task RemoveAsync(string id);
+        Task RemoveWhereAsync(Expression<Func<T, bool>> filter);
     }
 }
