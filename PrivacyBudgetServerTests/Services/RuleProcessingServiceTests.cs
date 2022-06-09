@@ -5,9 +5,6 @@ using PrivacyBudgetServer.Models.Database;
 using PrivacyBudgetServer.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PrivacyBudgetServerTests.Services
 {
@@ -614,12 +611,12 @@ namespace PrivacyBudgetServerTests.Services
                 }
             });
 
-            // Multiple And
             Assert.IsFalse(service.RuleSatisifed(transaction1, rule));
             Assert.IsTrue(service.RuleSatisifed(transaction2, rule));
             Assert.IsFalse(service.RuleSatisifed(transaction3, rule));
             Assert.IsTrue(service.RuleSatisifed(transaction4, rule));
 
+            // Multiple And
             rule = new Rule("account_id", new RuleSegment()
             {
                 Field = TransactionField.Amount,
@@ -677,12 +674,12 @@ namespace PrivacyBudgetServerTests.Services
                 }
             });
 
-            // Multiple Or
             Assert.IsTrue(service.RuleSatisifed(transaction1, rule));
             Assert.IsFalse(service.RuleSatisifed(transaction2, rule));
             Assert.IsTrue(service.RuleSatisifed(transaction3, rule));
             Assert.IsFalse(service.RuleSatisifed(transaction4, rule));
 
+            // Multiple Or
             rule = new Rule("account_id", new RuleSegment()
             {
                 Field = TransactionField.Amount,
@@ -712,6 +709,48 @@ namespace PrivacyBudgetServerTests.Services
             Assert.IsTrue(service.RuleSatisifed(transaction4, rule));
         }
 
-        // TODO: Nested AND/OR
+        [TestMethod]
+        public void RuleSatisifed_Combined()
+        {
+            RuleProcessingService service = new RuleProcessingService(new Mock<ICRUDService<Rule>>().Object);
+
+            Transaction transaction1 = new Transaction(null, "account_id", new DateTime(2020, 5, 20), null, "123456abcdef", 230.0M, "TestDescription");
+            Transaction transaction2 = new Transaction(null, "account_id", new DateTime(2020, 5, 21), null, "123456abcdef", 250.0M, "TestDescription");
+            Transaction transaction3 = new Transaction(null, "account_id", new DateTime(2020, 5, 22), null, "123456abcdef", 270.0M, "TestDescription");
+            Transaction transaction4 = new Transaction(null, "account_id", new DateTime(2020, 5, 22), null, "123456abcdef", 250.0M, "TestDescription");
+
+            // Single Or
+            Rule rule = new Rule("account_id", new RuleSegment()
+            {
+                Field = TransactionField.Amount,
+                Operator = RuleOperator.GreaterThan,
+                Parameter = 250.0M,
+                RelationType = RuleRelationType.Or,
+                OtherSegments = new List<RuleSegment>()
+                {
+                    new RuleSegment()
+                    {
+                        Field = TransactionField.Amount,
+                        Operator = RuleOperator.LessThan,
+                        Parameter = 250.0M,
+                        RelationType= RuleRelationType.And,
+                        OtherSegments = new List<RuleSegment>()
+                        {
+                            new RuleSegment()
+                            {
+                                Field = TransactionField.Date,
+                                Operator = RuleOperator.Equals,
+                                Parameter = new DateTime(2020, 5, 22)
+                            }
+                        }
+                    }
+                }
+            });
+
+            Assert.IsFalse(service.RuleSatisifed(transaction1, rule));
+            Assert.IsFalse(service.RuleSatisifed(transaction2, rule));
+            Assert.IsTrue(service.RuleSatisifed(transaction3, rule));
+            Assert.IsFalse(service.RuleSatisifed(transaction4, rule));
+        }
     }
 }
