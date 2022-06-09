@@ -2,6 +2,8 @@
 {
     public enum RuleOperator
     {
+        Exists,
+        NotExists,
         Equals,
         NotEquals,
         Contains,
@@ -10,7 +12,5 @@
         GreaterThanOrEqualTo,
         LessThan,
         LessThanOrEqualTo,
-        Exists,
-        NotExists,
     }
 }

@@ -87,12 +87,12 @@ namespace PrivacyBudgetServer.Services
                 case RuleOperator.NotExists: return data == null;
                 case RuleOperator.Equals: return data == parameter;
                 case RuleOperator.NotEquals: return data != parameter;
-                case RuleOperator.Contains: return dataAsString != null && parameter != null && dataAsString.ToLowerInvariant().Contains(parameter.ToLowerInvariant());
-                case RuleOperator.NotContains: return dataAsString != null && parameter != null && !dataAsString.ToLowerInvariant().Contains(parameter.ToLowerInvariant());
-                case RuleOperator.GreaterThan: return data > parameter;
-                case RuleOperator.GreaterThanOrEqualTo: return data >= parameter;
-                case RuleOperator.LessThan: return data < parameter;
-                case RuleOperator.LessThanOrEqualTo: return data <= parameter;
+                case RuleOperator.Contains: return parameter != null && dataAsString != null && dataAsString.ToLowerInvariant().Contains(parameter.ToLowerInvariant());
+                case RuleOperator.NotContains: return parameter != null && dataAsString != null && !dataAsString.ToLowerInvariant().Contains(parameter.ToLowerInvariant());
+                case RuleOperator.GreaterThan: return parameter != null && data > parameter;
+                case RuleOperator.GreaterThanOrEqualTo: return parameter != null && data >= parameter;
+                case RuleOperator.LessThan: return parameter != null && data < parameter;
+                case RuleOperator.LessThanOrEqualTo: return parameter != null && data <= parameter;
                 default: return false;
             }
         }
@@ -114,11 +114,11 @@ namespace PrivacyBudgetServer.Services
         {
             switch (field)
             {
-                case TransactionField.Date: return (DateTime)parameter;
-                case TransactionField.CounterParty: return (string)parameter;
-                case TransactionField.CounterPartyAccount: return (string)parameter;
-                case TransactionField.Description: return (string)parameter;
-                case TransactionField.Amount: return (decimal)parameter;
+                case TransactionField.Date: return (DateTime?)parameter;
+                case TransactionField.CounterParty: return (string?)parameter;
+                case TransactionField.CounterPartyAccount: return (string?)parameter;
+                case TransactionField.Description: return (string?)parameter;
+                case TransactionField.Amount: return (decimal?)parameter;
                 default: return null;
             }
         }
