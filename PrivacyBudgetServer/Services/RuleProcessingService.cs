@@ -77,7 +77,7 @@ namespace PrivacyBudgetServer.Services
         private bool SegmentConditionSatisfied(Transaction transaction, RuleSegment segment)
         {
             dynamic? data = GetFieldData(transaction, segment.Field);
-            dynamic? parameter = GetParameterData(segment.Field, segment.Parameter);
+            dynamic parameter = segment.Parameter;
 
             string? dataAsString = data as string;
 
@@ -97,30 +97,9 @@ namespace PrivacyBudgetServer.Services
             }
         }
 
-        private dynamic? GetFieldData(Transaction transaction, TransactionField field)
+        private dynamic? GetFieldData(Transaction transaction, string field)
         {
-            switch(field)
-            {
-                case TransactionField.Date: return transaction.Date;
-                case TransactionField.CounterParty: return transaction.CounterParty;
-                case TransactionField.CounterPartyAccount: return transaction.CounterPartyAccount;
-                case TransactionField.Description: return transaction.Description;
-                case TransactionField.Amount: return transaction.Amount;
-                default: return null;
-            }
-        }
-
-        private dynamic? GetParameterData(TransactionField field, object parameter)
-        {
-            switch (field)
-            {
-                case TransactionField.Date: return (DateTime?)parameter;
-                case TransactionField.CounterParty: return (string?)parameter;
-                case TransactionField.CounterPartyAccount: return (string?)parameter;
-                case TransactionField.Description: return (string?)parameter;
-                case TransactionField.Amount: return (decimal?)parameter;
-                default: return null;
-            }
+            return transaction.GetType().GetProperty(field)?.GetValue(transaction, null);
         }
     }
 }

@@ -5,7 +5,7 @@ namespace PrivacyBudgetServer.Models
     public class RuleSegment
     {
         public RuleOperator Operator { get; set; }
-        public TransactionField Field { get; set; }
+        public string Field { get; set; }
         public object Parameter { get; set; }
 
         public RuleRelationType RelationType { get; set; }

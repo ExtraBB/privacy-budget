@@ -20,7 +20,7 @@ namespace PrivacyBudgetServerTests.Services
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Exists
             });
 
@@ -29,7 +29,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterParty,
+                Field = "CounterParty",
                 Operator = RuleOperator.Exists
             });
 
@@ -45,7 +45,7 @@ namespace PrivacyBudgetServerTests.Services
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotExists
             });
 
@@ -54,7 +54,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterParty,
+                Field = "CounterParty",
                 Operator = RuleOperator.NotExists
             });
 
@@ -70,7 +70,7 @@ namespace PrivacyBudgetServerTests.Services
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Equals,
                 Parameter = "123456abcdef"
             });
@@ -80,7 +80,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Equals,
                 Parameter = "123456abcdefg"
             });
@@ -89,7 +89,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Equals
             });
 
@@ -105,7 +105,7 @@ namespace PrivacyBudgetServerTests.Services
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotEquals,
                 Parameter = "123456abcdefg"
             });
@@ -115,7 +115,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotEquals
             });
 
@@ -123,7 +123,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotEquals,
                 Parameter = "123456abcdef"
             });
@@ -140,7 +140,7 @@ namespace PrivacyBudgetServerTests.Services
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Contains,
                 Parameter = "123456"
             });
@@ -150,7 +150,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Contains,
                 Parameter = "ABCDEF"
             });
@@ -159,7 +159,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Contains,
                 Parameter = "abcdef"
             });
@@ -168,7 +168,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Contains,
                 Parameter = ""
             });
@@ -177,7 +177,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Contains,
                 Parameter = "aabcdef"
             });
@@ -186,7 +186,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.Contains
             });
 
@@ -202,7 +202,7 @@ namespace PrivacyBudgetServerTests.Services
 
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotContains,
                 Parameter = "123456"
             });
@@ -212,7 +212,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotContains,
                 Parameter = "ABCDEF"
             });
@@ -221,7 +221,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotContains,
                 Parameter = "abcdef"
             });
@@ -230,7 +230,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotContains,
                 Parameter = ""
             });
@@ -239,7 +239,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotContains,
                 Parameter = "aabcdef"
             });
@@ -248,7 +248,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.CounterPartyAccount,
+                Field = "CounterPartyAccount",
                 Operator = RuleOperator.NotContains
             });
 
@@ -265,7 +265,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Greater
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 240.0M
             });
@@ -274,7 +274,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = new DateTime(2020, 5, 21)
             });
@@ -284,7 +284,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Equal
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 230.0M
             });
@@ -293,7 +293,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = new DateTime(2020, 5, 20)
             });
@@ -303,7 +303,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter smaller
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 220.0M
             });
@@ -312,7 +312,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = new DateTime(2020, 5, 19)
             });
@@ -322,7 +322,7 @@ namespace PrivacyBudgetServerTests.Services
             // No parameter
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan
             });
 
@@ -330,7 +330,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThan
             });
 
@@ -347,7 +347,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Greater
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThanOrEqualTo,
                 Parameter = 240.0M
             });
@@ -356,7 +356,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThanOrEqualTo,
                 Parameter = new DateTime(2020, 5, 21)
             });
@@ -366,7 +366,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Equal
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThanOrEqualTo,
                 Parameter = 230.0M
             });
@@ -375,7 +375,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThanOrEqualTo,
                 Parameter = new DateTime(2020, 5, 20)
             });
@@ -385,7 +385,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter smaller
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThanOrEqualTo,
                 Parameter = 220.0M
             });
@@ -394,7 +394,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThanOrEqualTo,
                 Parameter = new DateTime(2020, 5, 19)
             });
@@ -404,7 +404,7 @@ namespace PrivacyBudgetServerTests.Services
             // No parameter
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThanOrEqualTo
             });
 
@@ -412,7 +412,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.GreaterThanOrEqualTo
             });
 
@@ -429,7 +429,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Less
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThan,
                 Parameter = 240.0M
             });
@@ -438,7 +438,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThan,
                 Parameter = new DateTime(2020, 5, 21)
             });
@@ -448,7 +448,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Equal
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThan,
                 Parameter = 230.0M
             });
@@ -457,7 +457,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThan,
                 Parameter = new DateTime(2020, 5, 20)
             });
@@ -467,7 +467,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter smaller
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThan,
                 Parameter = 220.0M
             });
@@ -476,7 +476,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThan,
                 Parameter = new DateTime(2020, 5, 19)
             });
@@ -486,7 +486,7 @@ namespace PrivacyBudgetServerTests.Services
             // No parameter
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThan
             });
 
@@ -494,7 +494,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThan
             });
 
@@ -511,7 +511,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Less
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThanOrEqualTo,
                 Parameter = 240.0M
             });
@@ -520,7 +520,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThanOrEqualTo,
                 Parameter = new DateTime(2020, 5, 21)
             });
@@ -530,7 +530,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter Equal
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThanOrEqualTo,
                 Parameter = 230.0M
             });
@@ -539,7 +539,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThanOrEqualTo,
                 Parameter = new DateTime(2020, 5, 20)
             });
@@ -549,7 +549,7 @@ namespace PrivacyBudgetServerTests.Services
             // Parameter smaller
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThanOrEqualTo,
                 Parameter = 220.0M
             });
@@ -558,7 +558,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThanOrEqualTo,
                 Parameter = new DateTime(2020, 5, 19)
             });
@@ -568,7 +568,7 @@ namespace PrivacyBudgetServerTests.Services
             // No parameter
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.LessThanOrEqualTo
             });
 
@@ -576,7 +576,7 @@ namespace PrivacyBudgetServerTests.Services
 
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Date,
+                Field = "Date",
                 Operator = RuleOperator.LessThanOrEqualTo
             });
 
@@ -596,7 +596,7 @@ namespace PrivacyBudgetServerTests.Services
             // Single AND
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 240.0M,
                 RelationType = RuleRelationType.And,
@@ -604,7 +604,7 @@ namespace PrivacyBudgetServerTests.Services
                 {
                     new RuleSegment()
                     {
-                        Field = TransactionField.Amount,
+                        Field = "Amount",
                         Operator = RuleOperator.LessThan,
                         Parameter = 260.0M,
                     }
@@ -619,7 +619,7 @@ namespace PrivacyBudgetServerTests.Services
             // Multiple And
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 240.0M,
                 RelationType = RuleRelationType.And,
@@ -627,13 +627,13 @@ namespace PrivacyBudgetServerTests.Services
                 {
                     new RuleSegment()
                     {
-                        Field = TransactionField.Amount,
+                        Field = "Amount",
                         Operator = RuleOperator.LessThan,
                         Parameter = 260.0M,
                     },
                     new RuleSegment()
                     {
-                        Field = TransactionField.Date,
+                        Field = "Date",
                         Operator = RuleOperator.LessThan,
                         Parameter = new DateTime(2020, 5, 22),
                     }
@@ -659,7 +659,7 @@ namespace PrivacyBudgetServerTests.Services
             // Single Or
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 250.0M,
                 RelationType = RuleRelationType.Or,
@@ -667,7 +667,7 @@ namespace PrivacyBudgetServerTests.Services
                 {
                     new RuleSegment()
                     {
-                        Field = TransactionField.Amount,
+                        Field = "Amount",
                         Operator = RuleOperator.LessThan,
                         Parameter = 250.0M,
                     }
@@ -682,7 +682,7 @@ namespace PrivacyBudgetServerTests.Services
             // Multiple Or
             rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 250.0M,
                 RelationType = RuleRelationType.Or,
@@ -690,13 +690,13 @@ namespace PrivacyBudgetServerTests.Services
                 {
                     new RuleSegment()
                     {
-                        Field = TransactionField.Amount,
+                        Field = "Amount",
                         Operator = RuleOperator.LessThan,
                         Parameter = 250.0M,
                     },
                     new RuleSegment()
                     {
-                        Field = TransactionField.Date,
+                        Field = "Date",
                         Operator = RuleOperator.Equals,
                         Parameter = new DateTime(2020,5,22),
                     }
@@ -722,7 +722,7 @@ namespace PrivacyBudgetServerTests.Services
             // Single Or
             Rule rule = new Rule("account_id", new RuleSegment()
             {
-                Field = TransactionField.Amount,
+                Field = "Amount",
                 Operator = RuleOperator.GreaterThan,
                 Parameter = 250.0M,
                 RelationType = RuleRelationType.Or,
@@ -730,7 +730,7 @@ namespace PrivacyBudgetServerTests.Services
                 {
                     new RuleSegment()
                     {
-                        Field = TransactionField.Amount,
+                        Field = "Amount",
                         Operator = RuleOperator.LessThan,
                         Parameter = 250.0M,
                         RelationType= RuleRelationType.And,
@@ -738,7 +738,7 @@ namespace PrivacyBudgetServerTests.Services
                         {
                             new RuleSegment()
                             {
-                                Field = TransactionField.Date,
+                                Field = "Date",
                                 Operator = RuleOperator.Equals,
                                 Parameter = new DateTime(2020, 5, 22)
                             }
