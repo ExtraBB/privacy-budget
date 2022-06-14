@@ -11,6 +11,7 @@ namespace PrivacyBudgetServer.Services
         public IMongoCollection<Transaction> TransactionCollection { get; }
         public IMongoCollection<Account> AccountCollection { get; }
         public IMongoCollection<Rule> RuleCollection { get; }
+        public IMongoCollection<Budget> BudgetCollection { get; }
 
         public DatabaseService(IOptions<PrivacyBudgetDatabaseSettings> privacyBudgetDatabaseSettings)
         {
@@ -19,6 +20,7 @@ namespace PrivacyBudgetServer.Services
             TransactionCollection = Database.GetCollection<Transaction>(privacyBudgetDatabaseSettings.Value.TransactionsCollectionName);
             AccountCollection = Database.GetCollection<Account>(privacyBudgetDatabaseSettings.Value.AccountsCollectionName);
             RuleCollection = Database.GetCollection<Rule>(privacyBudgetDatabaseSettings.Value.RulesCollectionName);
+            BudgetCollection = Database.GetCollection<Budget>(privacyBudgetDatabaseSettings.Value.BudgetsCollectionName);
         }
     }
 }

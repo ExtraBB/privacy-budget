@@ -1,4 +1,3 @@
-using PrivacyBudgetServer.Models;
 using PrivacyBudgetServer.Models.Database;
 using PrivacyBudgetServer.Services;
 
@@ -16,6 +15,7 @@ builder.Services.AddSingleton<DatabaseService>();
 builder.Services.AddSingleton<ICRUDService<Transaction>>(sp => new CRUDService<Transaction>(sp.GetService<DatabaseService>()?.TransactionCollection));
 builder.Services.AddSingleton<ICRUDService<Account>>(sp => new CRUDService<Account>(sp.GetService<DatabaseService>()?.AccountCollection));
 builder.Services.AddSingleton<ICRUDService<Rule>>(sp => new CRUDService<Rule>(sp.GetService<DatabaseService>()?.RuleCollection));
+builder.Services.AddSingleton<ICRUDService<Budget>>(sp => new CRUDService<Budget>(sp.GetService<DatabaseService>()?.BudgetCollection));
 builder.Services.AddSingleton<RuleProcessingService>();
 
 var app = builder.Build();
@@ -27,7 +27,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
